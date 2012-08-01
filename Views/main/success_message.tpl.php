@@ -1,0 +1,1 @@
+<div class="formee-msg-success" style="margin-bottom:25px;"><h3><?php echo $message; ?></h3></div>
