@@ -6,8 +6,7 @@ class SessionHandler {
 	}
 
 	public function start() {
-		$status = false;
-		
+
 		if (headers_sent()) {
 			if (empty($_SESSION)) {
 				$_SESSION = array();
@@ -18,13 +17,10 @@ class SessionHandler {
 
 		if (!isset($_SESSION)) {
 			session_cache_limiter("must-revalidate");
-			
-			if (session_start()) {
-				$status = true;
-			}
+			session_start();
 		}
 
-		return $status;
+		return true;
 	}
 
 	public function getAll() {
@@ -32,7 +28,6 @@ class SessionHandler {
 	}
 
 	public function clear() {
-		$_SESSION = array();
 		session_unset();
 	}
 
