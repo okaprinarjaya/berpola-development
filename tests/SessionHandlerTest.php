@@ -25,7 +25,6 @@ class SessionHandlerTest extends PHPUnit_Framework_TestCase {
 	public function testSetAndGetSessionData() {
 		$this->_session->set('testkey','testdata');
 		$this->_session->set('nicekey','nicedata');
-		$this->_session->set('method','Test Driven Development');
 		$this->_session->save();
 
 		$all_data_keys = array_keys($this->_session->getAll());
@@ -36,7 +35,10 @@ class SessionHandlerTest extends PHPUnit_Framework_TestCase {
 		$this->assertContains('nicedata', $this->_session->getAll());
 	}
 
-	public function testGetSpesificSessionData() {
+	public function testSetThenGetSpesificSessionData() {
+		$this->_session->set('method','Test Driven Development');
+		$this->_session->save();
+		
 		$expected = 'Test Driven Development';
 		$actual = $this->_session->get('method');
 
@@ -46,17 +48,12 @@ class SessionHandlerTest extends PHPUnit_Framework_TestCase {
 	public function testStopAndClearSession() {
 		$this->_session->clear();
 
-		$expected1 = 'testdata';
 		$actual1 = $this->_session->get('testkey');
-
-		$expected2 = 'nicedata';
 		$actual2 = $this->_session->get('nicekey');
-
-		$expected3 = 'Test Driven Development';
 		$actual3 = $this->_session->get('method');
 
-		$this->assertFalse($this->_session->get('testkey'));
-		$this->assertFalse($this->_session->get('nicekey'));
-		$this->assertFalse($this->_session->get('method'));
+		$this->assertFalse($actual1);
+		$this->assertFalse($actual2);
+		$this->assertFalse($actual3);
 	}
 }
